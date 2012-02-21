@@ -19,8 +19,14 @@ set encoding=utf8
 " always join with just one space, even between sentences
 set nojoinspaces
 
+" always have linenumbers on
+set number
+
 " don't move the cursor to the start of the line when changing buffers
 set nostartofline
+
+" enable mouse
+set mouse=a
 "}}}
 " Display {{{
 " color!
@@ -186,7 +192,7 @@ set directory=/var/tmp/vim-sebbe/swap
 set t_Co=256
 
 " pick a lovely colorscheme
-colorscheme desert
+colorscheme wombat256
 " }}}
 " word completion menu {{{
 highlight Pmenu      ctermfg=grey  ctermbg=darkblue
