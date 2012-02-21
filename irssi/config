@@ -23,6 +23,16 @@ servers = (
     autoconnect = "yes";
   },
   {
+    address = "holmes.freenode.net";
+    chatnet = "freenode";
+    port = "6667";
+  },
+  {
+    address = "gibson.freenode.net";
+    chatnet = "freenode";
+    port = "6667";
+  },
+  {
     address = "irc.synirc.net";
     chatnet = "SynIRC";
     port = "6667";
@@ -111,13 +121,10 @@ chatnets = {
 };
 
 channels = (
-  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "#diku"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#nethack"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#sacketyhack"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#interhack"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#cobol"; chatnet = "SynIRC"; autojoin = "yes"; },
-  { name = "#letsplay"; chatnet = "SynIRC"; autojoin = "yes"; },
+  { name = "#nethack"; chatnet = "freenode"; autojoin = "no"; },
+  { name = "#sacketyhack"; chatnet = "freenode"; autojoin = "no"; },
+  { name = "#interhack"; chatnet = "freenode"; autojoin = "no"; },
   {
     name = "#maverick_zero's_test_dome";
     chatnet = "PSIGenix";
@@ -125,7 +132,15 @@ channels = (
   },
   { name = "#quickfox"; chatnet = "QuickFox"; autojoin = "yes"; },
   { name = "#psystra"; chatnet = "QuickFox"; autojoin = "yes"; },
-  { name = "#regex"; chatnet = "Undernet"; autojoin = "yes"; }
+  { name = "#regex"; chatnet = "Undernet"; autojoin = "yes"; },
+  { name = "#eggsml"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#zomg_pwnies"; chatnet = "freenode"; autojoin = "yes"; },
+  {
+    name = "#zomg_pwnies_trusted";
+    chatnet = "freenode";
+    autojoin = "yes";
+    password = "#zomg_pwnies";
+  }
 );
 
 aliases = {
@@ -174,6 +189,10 @@ aliases = {
   "MANUAL-WINDOWS" = "set use_status_window off;set autocreate_windows off;set autocreate_query_level none;set autoclose_windows off;set reuse_unused_windows on;save";
   EXEMPTLIST = "mode $C +e";
   ATAG = "WINDOW SERVER";
+  USJOVT = "say concieggs: det er jo ikke sjovt";
+  SJOVT = "say concieggs: det er faktisk ret sjovt";
+  USJOV = "say concieggs: det er jo ikke sjovt";
+  SJOV = "say concieggs: det er faktisk ret sjovt";
 };
 
 statusbar = {
@@ -319,52 +338,26 @@ ignores = (
     channels = ( "#nethack" );
   }
 );
-hilights = ( { text = "Sebbe"; nick = "yes"; word = "yes"; } );
+hilights = (
+  { text = "Sebbe"; nick = "yes"; word = "yes"; },
+  {
+    text = "doodle\\.com";
+    color = "%m";
+    nick = "yes";
+    word = "yes";
+    regexp = "yes";
+  }
+);
 logs = { };
 windows = {
-  1 = { 
+  1 = {
     immortal = "yes";
     name = "(status)";
     level = "ALL";
     sticky = "yes";
+    parent = "3";
   };
   2 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#cobol";
-        tag = "SynIRC";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  3 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#letsplay";
-        tag = "SynIRC";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#maverick_zero's_test_dome";
-        tag = "PSIGenix";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  5 = {
     items = (
       {
         type = "CHANNEL";
@@ -374,45 +367,44 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "3";
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#eggsml";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#zomg_pwnies";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+    parent = "3";
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#maverick_zero's_test_dome";
+        tag = "PSIGenix";
+      }
+    );
+    sticky = "yes";
+    parent = "3";
   };
   6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#nethack";
-        tag = "freenode";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#sacketyhack";
-        tag = "freenode";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#interhack";
-        tag = "freenode";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  9 = {
     items = (
       {
         type = "CHANNEL";
@@ -421,8 +413,10 @@ windows = {
         tag = "QuickFox";
       }
     );
+    sticky = "yes";
+    parent = "3";
   };
-  10 = {
+  7 = {
     items = (
       {
         type = "CHANNEL";
@@ -432,9 +426,21 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "3";
   };
-  11 = {
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#zomg_pwnies_trusted";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+    parent = "3";
+  };
+  9 = {
     items = (
       {
         type = "CHANNEL";
@@ -444,11 +450,11 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "3";
   };
-  12 = { name = "hilight"; sticky = "yes"; };
+  10 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "8"; lines = "52"; };
-  12 = { first_line = "1"; lines = "7"; };
+  3 = { first_line = "8"; lines = "52"; };
+  10 = { first_line = "1"; lines = "7"; };
 };

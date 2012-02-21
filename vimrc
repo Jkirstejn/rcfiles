@@ -185,6 +185,11 @@ set foldclose=all
 set backupdir=/var/tmp/vim-sebbe/swap
 set directory=/var/tmp/vim-sebbe/swap
 " }}}
+" Added commands {{{
+" Use w!! to write as sudo
+command -nargs=0 SudoWrite call SaveAsSudo()
+cmap w!! SudoWrite
+" }}}
 "}}}
 " Colors {{{
 " miscellaneous {{{
@@ -213,6 +218,12 @@ autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 hi EOLWS ctermbg=red
 " }}}
+" highlight line 81 for IP {{{
+if expand("%:p") =~? "Instruktorater/IP"
+    set textwidth=80
+    set colorcolumn=+1
+endif
+" }}}
 "}}}
 " Autocommands {{{
 " When editing a file, always jump to the last cursor position {{{
@@ -236,6 +247,9 @@ autocmd BufNewFile *.tex silent 0read ~/.vim/skeletons/latex.tex | set filetype=
 autocmd BufNewFile *.cpp silent call CPPSkeleton()
 
 autocmd BufReadPost *.smc set bin | set noeol
+
+autocmd BufReadPost *.sml silent set filetype=sml tabstop=2 softtabstop=2 shiftwidth=2
+autocmd BufReadPost *.sig silent set filetype=sml tabstop=2 softtabstop=2 shiftwidth=2
 "}}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
@@ -247,7 +261,7 @@ autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
 "}}}
 " SML make code {{{
-autocmd FileType sml setlocal makeprg=mosml\ -P\ full\ '%'
+autocmd FileType sml setlocal makeprg=rlwrap\ mosml\ -P\ full\ '%'
 " }}}
 " Python make code {{{
 autocmd FileType python setlocal makeprg=python\ '%'
@@ -309,6 +323,12 @@ fun! CHeaderSkeleton()
     let l:uuid =  matchstr(system("uuidgen"), "\\w*")
     silent :%s/<REPLACEME>/\=toupper(filename . "_" . uuid)/g
     normal G3k^
+endfun
+
+fun! SaveAsSudo()
+    silent :w !sudo tee %
+    silent :e!
+    " TODO: Make it show normal output shown on :w
 endfun
 " }}}
 " Plugin settings {{{

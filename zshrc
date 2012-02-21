@@ -37,6 +37,7 @@ setopt complete_in_word # hitting tab on the f in Mafile does the right thing
 # aliases {{{
 alias top="htop"
 alias mosml="rlwrap mosml"
+alias mosml201="rlwrap ~/build/mosml201/bin/mosml"
 # }}}
 # add color to some things {{{
 alias ls='ls -G --color'
@@ -50,6 +51,7 @@ alias nao="(TERM='rxvt'; telnet nethack.alt.org)"
 #alias termcast="telnet termcast.org"
 # }}}
 # shell accounts {{{
+alias fitpc="ssh sebbe@home.coq.dk -p 2306"
 alias galois="ssh m06spt@galois.math.ku.dk"
 alias shannon="ssh m06spt@shannon.math.ku.dk"
 alias brok="ssh -X sebbe@brok.diku.dk"
@@ -72,11 +74,17 @@ fi
 # keybinds {{{
 bindkey -v
 
-# Fix a few keys in putty
+# Fix a few keys
+# PuTTY:
 bindkey '^[[1~' beginning-of-line
+bindkey '^[[4~' end-of-line
+# Linux terminals
+bindkey '^[OH' beginning-of-line
+bindkey '^[OF' end-of-line
+
+# Common
 bindkey '^[[2~' overwrite-mode
 bindkey '^[[3~' delete-char
-bindkey '^[[4~' end-of-line
 
 # History search on ^R
 bindkey '^R' history-incremental-search-backward
